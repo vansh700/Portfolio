@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { ExternalLink, GitBranch } from 'lucide-react';
 import type { Project } from '@/api/project.api';
 
@@ -59,7 +60,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#e2e8f0', marginBottom: '0.5rem', lineHeight: 1.3 }}>
-          {project.title}
+          <Link href={`/projects/${project.id}`} style={{ color: 'inherit', textDecoration: 'none' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#a5b4fc')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#e2e8f0')}
+          >
+            {project.title}
+          </Link>
         </h3>
         <p style={{ color: '#64748b', fontSize: '0.855rem', lineHeight: 1.7, flex: 1, marginBottom: '1rem',
           display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>

@@ -26,11 +26,53 @@ model User {
 }
 
 model Profile {
-  id        String  @id @default(uuid())
-  userId    String  @unique
-  bio       String?
-  avatarUrl String?
-  user      User    @relation(fields: [userId], references: [id])
+  id          String  @id @default(uuid())
+  userId      String  @unique
+  user        User    @relation(fields: [userId], references: [id])
+
+  // Basic info
+  name        String?
+  headline    String?   // e.g. "Full-Stack Developer"
+  bio         String?   // short bio paragraph
+  bio2        String?   // second paragraph
+  avatarUrl   String?
+  location    String?   // e.g. "India · Open to Remote"
+  email       String?
+  githubUrl   String?
+  linkedinUrl String?
+  twitterUrl  String?
+  resumeUrl   String?
+
+  // Stats shown in About section  (stored as JSON array)
+  stats       Json?   // [{ num: "10+", label: "Projects Built" }]
+
+  // About highlight cards
+  highlights  Json?   // [{ icon: "⚡", label: "Fast Learner", desc: "..." }]
+
+  // Skills section
+  skillGroups Json?   // [{ category, color, glow, skills: [{ name, icon, level }] }]
+  extraSkills Json?   // string[]
+
+  // Experience section
+  experiences Json?   // [{ role, company, period, type, color, bullets }]
+
+  // Education section
+  education   Json?   // [{ degree, field, institution, location, period, grade, highlights, color }]
+
+  // Achievements / Certifications
+  achievements Json?  // [{ icon, title, issuer, date, description, color, link }]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ── Contact messages ──────────────────────────────────────────────────────────
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
 }
 
 // ── Project feature ───────────────────────────────────────────────────────────
